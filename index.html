@@ -1,0 +1,1622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Newton's Laws - Car Collision Physics</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            line-height: 1.6;
+            font-size: 18px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 50px 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: clamp(2em, 5vw, 3.5em);
+            margin-bottom: 15px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+        
+        .header .subtitle {
+            font-size: clamp(1.1em, 3vw, 1.5em);
+            opacity: 0.95;
+            font-weight: 500;
+        }
+        
+        .header .meta {
+            font-size: 1em;
+            opacity: 0.85;
+            margin-top: 10px;
+        }
+        
+        .content {
+            padding: 50px 40px;
+        }
+        
+        /* Improved Typography */
+        h2 {
+            font-size: clamp(1.8em, 4vw, 2.5em);
+            font-weight: 700;
+            margin-bottom: 25px;
+        }
+        
+        h3 {
+            font-size: clamp(1.4em, 3vw, 1.8em);
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        h4 {
+            font-size: clamp(1.2em, 2.5vw, 1.5em);
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        p {
+            font-size: 1.15em;
+            line-height: 1.75;
+            margin-bottom: 15px;
+        }
+        
+        strong {
+            font-weight: 700;
+            color: #1e3c72;
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 50px;
+        }
+        
+        .hero-section h2 {
+            text-align: center;
+            margin-bottom: 35px;
+            font-size: clamp(2em, 4vw, 3em);
+        }
+        
+        /* Timeline - Now Vertical for Better Mobile */
+        .timeline {
+            display: grid;
+            gap: 25px;
+        }
+        
+        .timeline-card {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 16px;
+            border-left: 8px solid;
+            transition: transform 0.2s ease;
+        }
+        
+        .timeline-card:hover {
+            transform: translateX(5px);
+        }
+        
+        .timeline-card.law1 {
+            border-color: #ff6b9d;
+        }
+        
+        .timeline-card.law2 {
+            border-color: #4ecdc4;
+        }
+        
+        .timeline-card.law3 {
+            border-color: #95e1d3;
+        }
+        
+        .timeline-time {
+            font-size: 2em;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+        
+        .timeline-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 0.95em;
+            margin-bottom: 15px;
+        }
+        
+        .timeline-card.law1 .timeline-badge {
+            background: #ff6b9d;
+            color: white;
+        }
+        
+        .timeline-card.law2 .timeline-badge {
+            background: #4ecdc4;
+            color: #000;
+        }
+        
+        .timeline-card.law3 .timeline-badge {
+            background: #95e1d3;
+            color: #000;
+        }
+        
+        .timeline-description {
+            font-size: 1.2em;
+            line-height: 1.6;
+        }
+        
+        /* Scenario Setup */
+        .scenario-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        @media (min-width: 768px) {
+            .scenario-grid {
+                grid-template-columns: 1.2fr 1fr;
+            }
+        }
+        
+        .scenario-visual {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+        }
+        
+        .scenario-visual h3 {
+            margin-bottom: 25px;
+        }
+        
+        .car-diagram {
+            max-width: 100%;
+            margin: 25px 0;
+        }
+        
+        .scenario-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-left: 6px solid #667eea;
+        }
+        
+        .stat-label {
+            font-size: 1em;
+            color: #666;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .stat-value {
+            font-size: 2.5em;
+            font-weight: 800;
+            color: #1e3c72;
+            line-height: 1.2;
+        }
+        
+        /* Law Cards */
+        .law-section {
+            margin-bottom: 60px;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+        }
+        
+        .law-header {
+            padding: 45px 40px;
+            color: white;
+            position: relative;
+        }
+        
+        .law1-section .law-header {
+            background: linear-gradient(135deg, #ff6b9d 0%, #ff8fab 100%);
+        }
+        
+        .law2-section .law-header {
+            background: linear-gradient(135deg, #4ecdc4 0%, #44a3a0 100%);
+        }
+        
+        .law3-section .law-header {
+            background: linear-gradient(135deg, #95e1d3 0%, #7fd8c9 100%);
+        }
+        
+        .law-header h2 {
+            font-size: clamp(2em, 4vw, 3em);
+            margin-bottom: 12px;
+        }
+        
+        .law-formula {
+            font-size: clamp(1.2em, 3vw, 1.6em);
+            font-family: 'Courier New', monospace;
+            opacity: 0.95;
+            font-weight: 600;
+        }
+        
+        .law-body {
+            padding: 50px 40px;
+            background: #f8f9fa;
+        }
+        
+        /* Statement Box */
+        .statement-box {
+            background: white;
+            padding: 35px;
+            border-radius: 16px;
+            border-left: 8px solid;
+            font-size: 1.25em;
+            font-style: italic;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        
+        .law1-section .statement-box {
+            border-color: #ff6b9d;
+        }
+        
+        .law2-section .statement-box {
+            border-color: #4ecdc4;
+        }
+        
+        .law3-section .statement-box {
+            border-color: #95e1d3;
+        }
+        
+        /* Thinking Process - Improved */
+        .thinking-box {
+            background: linear-gradient(135deg, #fff9e6 0%, #ffedd5 100%);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 40px;
+            border: 3px solid #fbbf24;
+        }
+        
+        .thinking-box h3 {
+            color: #d97706;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.6em;
+        }
+        
+        .thinking-step {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 18px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            border-left: 5px solid #fbbf24;
+        }
+        
+        .thinking-step:last-child {
+            margin-bottom: 0;
+        }
+        
+        .step-header {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #d97706;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .step-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            background: #fbbf24;
+            color: white;
+            border-radius: 50%;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+        
+        .step-content {
+            font-size: 1.15em;
+            line-height: 1.7;
+            color: #333;
+        }
+        
+        /* Calculation Box - Enhanced */
+        .calc-box {
+            background: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 40px;
+            border: 3px solid #e5e7eb;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        
+        .calc-box h3 {
+            color: #1e3c72;
+            margin-bottom: 25px;
+            font-size: 1.6em;
+        }
+        
+        .calc-step {
+            background: #f3f4f6;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.2em;
+            line-height: 1.6;
+        }
+        
+        .calc-step.result {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            border: 3px solid #3b82f6;
+            font-weight: 800;
+            font-size: 1.4em;
+            text-align: center;
+            padding: 25px;
+        }
+        
+        .calc-arrow {
+            text-align: center;
+            font-size: 2.5em;
+            color: #3b82f6;
+            margin: 10px 0;
+        }
+        
+        /* Comparison Cards - Improved */
+        .comparison {
+            display: grid;
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        @media (min-width: 900px) {
+            .comparison {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        .comparison-card {
+            border-radius: 20px;
+            padding: 35px;
+            border: 5px solid;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+        
+        .comparison-card.danger {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            border-color: #dc2626;
+        }
+        
+        .comparison-card.safe {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            border-color: #059669;
+        }
+        
+        .comparison-card h4 {
+            font-size: 1.8em;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .comparison-card.danger h4 {
+            color: #dc2626;
+        }
+        
+        .comparison-card.safe h4 {
+            color: #059669;
+        }
+        
+        .comparison-value {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 1.15em;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        
+        .comparison-result {
+            font-size: 1.6em;
+            font-weight: 800;
+            text-align: center;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .comparison-impact {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-top: 20px;
+            font-size: 1.15em;
+            line-height: 1.7;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        
+        /* Insight Boxes - Enhanced */
+        .insight-box {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            border-left: 8px solid #3b82f6;
+            padding: 35px;
+            border-radius: 16px;
+            margin: 40px 0;
+        }
+        
+        .insight-box h4 {
+            color: #1e40af;
+            font-size: 1.7em;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .insight-box p {
+            font-size: 1.25em;
+            line-height: 1.8;
+            color: #1e40af;
+        }
+        
+        /* Check Understanding - Improved */
+        .check-box {
+            background: linear-gradient(135deg, #fae8ff 0%, #f3e8ff 100%);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            border: 4px solid #a855f7;
+        }
+        
+        .check-box h4 {
+            color: #7e22ce;
+            font-size: 1.7em;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .check-question {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+            border-left: 5px solid #a855f7;
+        }
+        
+        .check-question:last-child {
+            margin-bottom: 0;
+        }
+        
+        .question-label {
+            font-weight: 700;
+            color: #7e22ce;
+            font-size: 1.2em;
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .question-text {
+            font-size: 1.15em;
+            line-height: 1.7;
+            color: #333;
+        }
+        
+        /* Pause and Think */
+        .pause-box {
+            background: #fffbeb;
+            border: 3px dashed #f59e0b;
+            padding: 30px;
+            border-radius: 16px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .pause-box h4 {
+            color: #d97706;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+        
+        .pause-box p {
+            font-size: 1.2em;
+            color: #92400e;
+        }
+        
+        /* Synthesis Section */
+        .synthesis-section {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-radius: 24px;
+            padding: 50px 40px;
+            margin: 60px 0;
+        }
+        
+        .synthesis-section h2 {
+            color: #d97706;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: clamp(2em, 4vw, 3em);
+        }
+        
+        .law-summary-grid {
+            display: grid;
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        @media (min-width: 900px) {
+            .law-summary-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        .law-summary-card {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border-top: 6px solid;
+        }
+        
+        .law-summary-card.law1 {
+            border-color: #ff6b9d;
+        }
+        
+        .law-summary-card.law2 {
+            border-color: #4ecdc4;
+        }
+        
+        .law-summary-card.law3 {
+            border-color: #95e1d3;
+        }
+        
+        .law-badge {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 1em;
+            margin-bottom: 15px;
+        }
+        
+        .law-summary-card.law1 .law-badge {
+            background: #ff6b9d;
+            color: white;
+        }
+        
+        .law-summary-card.law2 .law-badge {
+            background: #4ecdc4;
+            color: #000;
+        }
+        
+        .law-summary-card.law3 .law-badge {
+            background: #95e1d3;
+            color: #000;
+        }
+        
+        .law-summary-card h4 {
+            font-size: 1.4em;
+            margin-bottom: 12px;
+        }
+        
+        .law-summary-card p {
+            font-size: 1.1em;
+            line-height: 1.7;
+        }
+        
+        /* Story Flow */
+        .story-flow {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .story-flow h3 {
+            text-align: center;
+            color: #d97706;
+            margin-bottom: 35px;
+            font-size: 1.8em;
+        }
+        
+        .flow-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .flow-step:last-child {
+            margin-bottom: 0;
+        }
+        
+        .flow-number {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: #d97706;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8em;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+        
+        .flow-content {
+            flex: 1;
+            padding-top: 8px;
+        }
+        
+        .flow-content p {
+            font-size: 1.15em;
+            line-height: 1.75;
+        }
+        
+        .flow-arrow-down {
+            text-align: center;
+            font-size: 2.5em;
+            color: #d97706;
+            margin: 15px 0;
+        }
+        
+        /* Engineering Grid */
+        .engineering-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 50px 40px;
+            border-radius: 24px;
+            margin: 60px 0;
+        }
+        
+        .engineering-section h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: clamp(2em, 4vw, 3em);
+        }
+        
+        .engineering-grid {
+            display: grid;
+            gap: 25px;
+        }
+        
+        @media (min-width: 768px) {
+            .engineering-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 1100px) {
+            .engineering-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        .engineering-card {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 16px;
+            border: 3px solid rgba(255,255,255,0.3);
+            transition: transform 0.2s ease;
+        }
+        
+        .engineering-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .engineering-card h4 {
+            font-size: 1.6em;
+            margin-bottom: 15px;
+        }
+        
+        .law-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 18px 0;
+        }
+        
+        .law-tag {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.95em;
+            font-weight: 700;
+        }
+        
+        .law-tag.law1 {
+            background: #ff6b9d;
+            color: white;
+        }
+        
+        .law-tag.law2 {
+            background: #4ecdc4;
+            color: #000;
+        }
+        
+        .law-tag.law3 {
+            background: #95e1d3;
+            color: #000;
+        }
+        
+        .engineering-card p {
+            font-size: 1.15em;
+            line-height: 1.7;
+        }
+        
+        .key-principle {
+            background: rgba(255,255,255,0.25);
+            padding: 18px;
+            border-radius: 12px;
+            margin-top: 18px;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+        
+        /* Quick Reference */
+        .reference-section {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 50px 40px;
+            border-radius: 24px;
+            margin: 60px 0;
+        }
+        
+        .reference-section h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: clamp(2em, 4vw, 3em);
+        }
+        
+        .reference-grid {
+            display: grid;
+            gap: 25px;
+        }
+        
+        @media (min-width: 900px) {
+            .reference-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        .reference-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 16px;
+            border: 4px solid;
+        }
+        
+        .reference-card.law1 {
+            border-color: #ff6b9d;
+        }
+        
+        .reference-card.law2 {
+            border-color: #4ecdc4;
+        }
+        
+        .reference-card.law3 {
+            border-color: #95e1d3;
+        }
+        
+        .reference-card h4 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+        
+        .formula-display {
+            background: rgba(255,255,255,0.2);
+            padding: 20px;
+            border-radius: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.4em;
+            text-align: center;
+            margin: 20px 0;
+            font-weight: 700;
+        }
+        
+        .reference-card p {
+            font-size: 1.1em;
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+        
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            padding: 50px 40px;
+            border-radius: 24px;
+            margin-top: 60px;
+        }
+        
+        .footer h2 {
+            color: #d97706;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: clamp(2em, 4vw, 2.8em);
+        }
+        
+        .footer-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .footer p {
+            font-size: 1.25em;
+            line-height: 1.8;
+            color: #78350f;
+            text-align: center;
+        }
+        
+        .stats-box {
+            background: white;
+            padding: 35px;
+            border-radius: 16px;
+            margin-top: 35px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .stats-box h3 {
+            color: #d97706;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.7em;
+        }
+        
+        .stats-box p {
+            color: #1f2937;
+            font-size: 1.2em;
+        }
+        
+        /* Accessibility improvements */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0,0,0,0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+        
+        /* Focus styles for accessibility */
+        *:focus-visible {
+            outline: 3px solid #3b82f6;
+            outline-offset: 2px;
+        }
+        
+        /* Print styles */
+        @media print {
+            body {
+                background: white;
+            }
+            .container {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🚗 Newton's Three Laws in Action</h1>
+            <p class="subtitle">Understanding Car Collision Physics</p>
+            <p class="meta">MS-PS2-2 | Grade 8 Science | Complete Analysis</p>
+        </header>
+        
+        <main class="content">
+            <!-- Hero Timeline Section -->
+            <section class="hero-section" aria-labelledby="timeline-heading">
+                <h2 id="timeline-heading">⏱️ Collision Timeline: When Each Law Matters</h2>
+                <div class="timeline">
+                    <div class="timeline-card law1">
+                        <div class="timeline-time">t = -1.0s</div>
+                        <span class="timeline-badge">Law 1: Inertia</span>
+                        <p class="timeline-description">Car and passenger both cruising at 20 m/s. They want to keep moving forever—that's inertia at work!</p>
+                    </div>
+                    
+                    <div class="timeline-card law3">
+                        <div class="timeline-time">t = 0.0s</div>
+                        <span class="timeline-badge">Law 3: Action-Reaction</span>
+                        <p class="timeline-description">IMPACT! Car slams into wall. Wall pushes back on car with EQUAL force. Both forces happen at the exact same moment.</p>
+                    </div>
+                    
+                    <div class="timeline-card law2">
+                        <div class="timeline-time">t = 0.01-0.10s</div>
+                        <span class="timeline-badge">Law 2: F=ma</span>
+                        <p class="timeline-description">Crumple zone saves lives by extending collision time. Longer Δt means MUCH smaller F. This is the key to survival!</p>
+                    </div>
+                    
+                    <div class="timeline-card law1">
+                        <div class="timeline-time">t = 0.10s</div>
+                        <span class="timeline-badge">Law 1: Inertia</span>
+                        <p class="timeline-description">Seatbelt finally stops passenger by overcoming their inertia. Without it, they'd keep flying forward at 20 m/s!</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Scenario Setup -->
+            <section aria-labelledby="scenario-heading">
+                <h2 id="scenario-heading" style="text-align: center; margin-bottom: 35px; color: #1e3c72;">🎬 The Collision Scenario</h2>
+                <div class="scenario-grid">
+                    <div class="scenario-visual">
+                        <h3>The Situation</h3>
+                        <svg class="car-diagram" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Car traveling at 20 meters per second toward a wall">
+                            <!-- Car -->
+                            <rect x="50" y="100" width="120" height="60" fill="#3498db" stroke="#2c3e50" stroke-width="3" rx="5"/>
+                            <rect x="70" y="85" width="80" height="30" fill="#5dade2" stroke="#2c3e50" stroke-width="2" rx="3"/>
+                            <!-- Wheels -->
+                            <circle cx="80" cy="165" r="15" fill="#2c3e50"/>
+                            <circle cx="140" cy="165" r="15" fill="#2c3e50"/>
+                            <!-- Motion lines -->
+                            <line x1="20" y1="120" x2="40" y2="120" stroke="white" stroke-width="4"/>
+                            <line x1="15" y1="135" x2="35" y2="135" stroke="white" stroke-width="4"/>
+                            <line x1="25" y1="150" x2="45" y2="150" stroke="white" stroke-width="4"/>
+                            <!-- Arrow -->
+                            <path d="M 180 130 L 220 130 L 215 120 M 220 130 L 215 140" stroke="#ff6b9d" stroke-width="5" fill="none"/>
+                            <text x="185" y="118" font-size="16" fill="white" font-weight="bold">20 m/s</text>
+                            <!-- Wall -->
+                            <rect x="280" y="70" width="40" height="100" fill="#7f8c8d" stroke="#2c3e50" stroke-width="4"/>
+                        </svg>
+                        <p style="font-size: 1.2em; margin-top: 20px;">1,500 kg car + 70 kg passenger hitting a solid wall</p>
+                    </div>
+                    
+                    <div class="scenario-stats">
+                        <div class="stat-card">
+                            <div class="stat-label">Car Mass</div>
+                            <div class="stat-value">1,500 kg</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Passenger Mass</div>
+                            <div class="stat-value">70 kg</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Initial Speed</div>
+                            <div class="stat-value">20 m/s</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Final Speed</div>
+                            <div class="stat-value">0 m/s</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Law 1: Inertia -->
+            <section class="law-section law1-section" aria-labelledby="law1-heading">
+                <div class="law-header">
+                    <h2 id="law1-heading">⚖️ Newton's First Law: Inertia</h2>
+                    <p class="law-formula">Objects in motion stay in motion (unless a force stops them)</p>
+                </div>
+                <div class="law-body">
+                    <div class="statement-box">
+                        "An object at rest stays at rest, and an object in motion stays in motion at constant velocity, unless acted upon by an unbalanced force."
+                    </div>
+
+                    <div class="thinking-box">
+                        <h3>🧠 Let's Think This Through</h3>
+                        
+                        <div class="thinking-step">
+                            <div class="step-header">
+                                <span class="step-icon">1</span>
+                                Before Impact: Cruising Along
+                            </div>
+                            <p class="step-content">Both you and the car are moving at 20 m/s (about 45 mph). According to Newton's First Law, you WANT to keep moving at 20 m/s forever. That's your inertia—your body's resistance to changing speed.</p>
+                        </div>
+                        
+                        <div class="thinking-step">
+                            <div class="step-header">
+                                <span class="step-icon">2</span>
+                                The Danger: When the Car Stops
+                            </div>
+                            <p class="step-content">The wall applies a huge force that stops the car almost instantly. But here's the scary part: YOUR body still wants to keep moving forward at 20 m/s! Without a seatbelt, you'd fly straight through the windshield.</p>
+                        </div>
+                        
+                        <div class="thinking-step">
+                            <div class="step-header">
+                                <span class="step-icon">3</span>
+                                The Solution: Seatbelts Provide the Force
+                            </div>
+                            <p class="step-content">The seatbelt is the "unbalanced force" that Newton's First Law talks about. It pulls you backward, fighting against your inertia to stop you WITH the car instead of letting you continue forward.</p>
+                        </div>
+                    </div>
+
+                    <div class="calc-box">
+                        <h3>📐 How Much Energy Does the Passenger Have?</h3>
+                        <p style="margin-bottom: 20px;">This kinetic energy represents their "desire" to keep moving. It has to go somewhere!</p>
+                        
+                        <div class="calc-step">
+                            <strong>Formula:</strong> KE = ½mv²
+                        </div>
+                        <div class="calc-step">
+                            <strong>What we know:</strong> m = 70 kg, v = 20 m/s
+                        </div>
+                        <div class="calc-arrow">↓</div>
+                        <div class="calc-step">
+                            KE = ½ × 70 kg × (20 m/s)²
+                        </div>
+                        <div class="calc-step">
+                            KE = ½ × 70 × 400
+                        </div>
+                        <div class="calc-step">
+                            KE = 35 × 400
+                        </div>
+                        <div class="calc-arrow">↓</div>
+                        <div class="calc-step result">
+                            KE = 14,000 Joules
+                        </div>
+                    </div>
+
+                    <div class="insight-box">
+                        <h4>💡 What Does 14,000 J Really Mean?</h4>
+                        <p>That's enough energy to lift a 70 kg person about 20 meters into the air (like a 7-story building)! In a crash, this energy either gets absorbed by safety equipment (seatbelt, airbag, crumple zone) or it gets absorbed by YOUR BODY when you hit the dashboard. Safety systems are designed to absorb that energy instead of you!</p>
+                    </div>
+
+                    <div class="pause-box">
+                        <h4>⏸️ Pause and Think</h4>
+                        <p>Close your eyes and imagine you're moving at 20 m/s. Now imagine the car suddenly stops, but you keep going. That feeling of being thrown forward? That's inertia!</p>
+                    </div>
+
+                    <div class="check-box">
+                        <h4>✓ Check Your Understanding</h4>
+                        
+                        <div class="check-question">
+                            <span class="question-label">❓ Question 1:</span>
+                            <p class="question-text">Why does the passenger continue moving forward when the car stops?</p>
+                        </div>
+                        
+                        <div class="check-question">
+                            <span class="question-label">❓ Question 2:</span>
+                            <p class="question-text">What provides the "unbalanced force" that stops the passenger from flying through the windshield?</p>
+                        </div>
+                        
+                        <div class="check-question">
+                            <span class="question-label">🔥 Challenge:</span>
+                            <p class="question-text">If the car were moving at 40 m/s instead of 20 m/s, how would the passenger's kinetic energy change? (Hint: KE depends on v², so if v doubles, what happens to KE?)</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Law 2: F=ma -->
+            <section class="law-section law2-section" aria-labelledby="law2-heading">
+                <div class="law-header">
+                    <h2 id="law2-heading">⚡ Newton's Second Law: F = ma</h2>
+                    <p class="law-formula">F = ma  OR  F = Δp/Δt</p>
+                </div>
+                <div class="law-body">
+                    <div class="statement-box">
+                        "The acceleration of an object depends on the net force acting on it and the object's mass."
+                        <br><br>
+                        <strong>For collisions, we use:</strong> F = Δp/Δt → Force equals change in momentum divided by time
+                    </div>
+
+                    <div class="thinking-box">
+                        <h3>🧠 The Key Insight That Saves Lives</h3>
+                        
+                        <div class="thinking-step">
+                            <div class="step-header">
+                                <span class="step-icon">1</span>
+                                What We CAN'T Change
+                            </div>
+                            <p class="step-content">We have to stop the passenger. Their momentum change (Δp = 70 kg × 20 m/s = 1,400 kg·m/s) is FIXED. We can't make them stop "gently"—they either stop completely or they don't. The momentum change is the same either way.</p>
+                        </div>
+                        
+                        <div class="thinking-step">
+                            <div class="step-header">
+                                <span class="step-icon">2</span>
+                                What We CAN Change: TIME!
+                            </div>
+                            <p class="step-content">Look at the equation F = Δp/Δt. Since Δp is fixed at 1,400 kg·m/s, the ONLY way to reduce F is to increase Δt. Think of it like this: Would you rather fall onto concrete (stops you in 0.01s) or a thick mattress (stops you in 0.10s)? Same momentum change, different time = VERY different force!</p>
+                        </div>
+                        
+                        <div class="thinking-step">
+                            <div class="step-header">
+                                <span class="step-icon">3</span>
+                                The Math Behind Crumple Zones
+                            </div>
+                            <p class="step-content">F = Δp/Δt is a fraction. When the bottom number (Δt) gets 10 times bigger, the whole fraction (F) gets 10 times smaller. So if we extend collision time from 0.01s to 0.10s, we reduce force by 90%! That's the difference between life and death.</p>
+                        </div>
+                        
+                        <div class="thinking-step">
+                            <div class="step-header">
+                                <span class="step-icon">4</span>
+                                Why Engineers Love This Equation
+                            </div>
+                            <p class="step-content">This equation tells engineers EXACTLY what to do: design cars that crumple in crashes. The crumpling isn't a failure—it's intentional! Each millisecond the car crumples, it's extending Δt and reducing F on you.</p>
+                        </div>
+                    </div>
+
+                    <div class="calc-box">
+                        <h3>📐 Step 1: Calculate the Fixed Momentum Change</h3>
+                        <p style="margin-bottom: 20px; padding: 15px; background: #fef3c7; border-radius: 12px; color: #78350f;">
+                            <strong>Remember:</strong> This is the same no matter what. The passenger MUST change from 20 m/s to 0 m/s.
+                        </p>
+                        
+                        <div class="calc-step">
+                            Δp = m × Δv
+                        </div>
+                        <div class="calc-step">
+                            Δp = 70 kg × (20 m/s - 0 m/s)
+                        </div>
+                        <div class="calc-arrow">↓</div>
+                        <div class="calc-step result">
+                            Δp = 1,400 kg·m/s
+                        </div>
+                        <p style="margin-top: 20px; padding: 20px; background: #fffbeb; border-radius: 12px; border-left: 5px solid #f59e0b; color: #78350f;">
+                            <strong>This is LOCKED IN!</strong> The passenger must lose exactly 1,400 kg·m/s of momentum. Now let's see how TIME changes everything...
+                        </p>
+                    </div>
+
+                    <h3 style="text-align: center; font-size: 2em; margin: 40px 0; color: #1e3c72;">💥 The Critical Comparison</h3>
+
+                    <div class="comparison">
+                        <div class="comparison-card danger">
+                            <h4>❌ WITHOUT Crumple Zone (Old Cars)</h4>
+                            
+                            <div class="comparison-value">
+                                <strong>Collision time:</strong> Δt = 0.01 seconds
+                            </div>
+                            
+                            <div class="comparison-value">
+                                <strong>The equation:</strong> F = Δp / Δt
+                            </div>
+                            
+                            <div class="comparison-value">
+                                F = 1,400 kg·m/s / 0.01 s
+                            </div>
+                            
+                            <div class="comparison-result" style="background: #fca5a5; color: #7f1d1d;">
+                                F = 140,000 Newtons
+                            </div>
+                            
+                            <div class="comparison-impact">
+                                <strong style="color: #dc2626; font-size: 1.3em;">⚠️ DEADLY FORCE</strong>
+                                <p style="margin-top: 10px;">This is like having 31 people (each weighing 70kg) standing on your chest all at once. Your ribs would break, organs would be crushed, internal bleeding everywhere. This force is almost always fatal.</p>
+                            </div>
+                        </div>
+
+                        <div class="comparison-card safe">
+                            <h4>✅ WITH Crumple Zone (Modern Cars)</h4>
+                            
+                            <div class="comparison-value">
+                                <strong>Collision time:</strong> Δt = 0.10 seconds (10× longer!)
+                            </div>
+                            
+                            <div class="comparison-value">
+                                <strong>The equation:</strong> F = Δp / Δt
+                            </div>
+                            
+                            <div class="comparison-value">
+                                F = 1,400 kg·m/s / 0.10 s
+                            </div>
+                            
+                            <div class="comparison-result" style="background: #86efac; color: #14532d;">
+                                F = 14,000 Newtons
+                            </div>
+                            
+                            <div class="comparison-impact">
+                                <strong style="color: #059669; font-size: 1.3em;">✓ SURVIVABLE FORCE</strong>
+                                <p style="margin-top: 10px;">This is like 3 people standing on your chest. Still intense, but your seatbelt can spread this force across your strong chest and hip bones. You'd be sore for weeks, but you'd survive!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="insight-box">
+                        <h4>🎯 The Bottom Line</h4>
+                        <p>By making the collision last 10× longer (0.01s → 0.10s), we reduce the force by 10× (140,000N → 14,000N). This is THE fundamental principle of ALL collision safety. Every safety feature exists to maximize Δt. More time = less force = you survive!</p>
+                    </div>
+
+                    <div class="pause-box">
+                        <h4>⏸️ Pause and Visualize</h4>
+                        <p>Imagine catching a water balloon. If you catch it with stiff arms (quick stop), it pops. If you catch it and move your arms backward (extending the time), it doesn't pop. Same momentum change, different time = different force!</p>
+                    </div>
+
+                    <div class="check-box">
+                        <h4>✓ Check Your Understanding</h4>
+                        
+                        <div class="check-question">
+                            <span class="question-label">❓ Question 1:</span>
+                            <p class="question-text">Why can't we change the momentum change (Δp) in a collision? Why is it always the same?</p>
+                        </div>
+                        
+                        <div class="check-question">
+                            <span class="question-label">❓ Question 2:</span>
+                            <p class="question-text">If we could extend the collision time to 0.20 seconds (double what the crumple zone gives us), what would the force be? Show your calculation!</p>
+                        </div>
+                        
+                        <div class="check-question">
+                            <span class="question-label">🔥 Challenge:</span>
+                            <p class="question-text">An airbag adds another 0.05 seconds to the collision time (so total time = 0.15s). Calculate the NEW force with both the crumple zone AND airbag working together. How much better is this than just the crumple zone alone?</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Law 3: Action-Reaction -->
+            <section class="law-section law3-section" aria-labelledby="law3-heading">
+                <div class="law-header">
+                    <h2 id="law3-heading">🔄 Newton's Third Law: Action-Reaction</h2>
+                    <p class="law-formula">For every action, there's an equal and opposite reaction</p>
+                </div>
+                <div class="law-body">
+                    <div class="statement-box">
+                        "For every action force, there is an equal and opposite reaction force. Forces always come in pairs."
+                    </div>
+
+                    <div class="thinking-box">
+                        <h3>🧠 Understanding Force Pairs in Crashes</h3>
+                        
+                        <div class="thinking-step">
+                            <div class="step-header">
+                                <span class="step-icon">1</span>
+                                Force Pair #1: Car Hits Wall
+                            </div>
+                            <p class="step-content">The car pushes on the wall with a MASSIVE force (millions of Newtons). At the exact same instant, the wall pushes back on the car with an EQUAL force in the opposite direction. These forces are always equal in magnitude—always!</p>
+                        </div>
+                        
+                        <div class="thinking-step">
+                            <div class="step-header">
+                                <span class="step-icon">2</span>
+                                Wait, If Forces Are Equal, Why Different Results?
+                            </div>
+                            <p class="step-content">Great question! The wall doesn't move because it has essentially infinite mass (it's attached to the Earth). The car only has 1,500 kg. Remember F=ma? Same force (F), but VERY different masses (m), so VERY different accelerations (a). The wall barely budges; the car crumples!</p>
+                        </div>
+                        
+                        <div class="thinking-step">
+                            <div class="step-header">
+                                <span class="step-icon">3</span>
+                                Force Pair #2: Seatbelt and You
+                            </div>
+                            <p class="step-content">The seatbelt pulls backward on you with 14,000 N (stopping you). At the same time, you pull forward on the seatbelt with 14,000 N. You can actually FEEL this—it's why seatbelts feel so tight during sudden stops. Those are action-reaction forces!</p>
+                        </div>
+                        
+                        <div class="thinking-step">
+                            <div class="step-header">
+                                <span class="step-icon">4</span>
+                                How Crumple Zones Connect to This
+                            </div>
+                            <p class="step-content">The crumple zone doesn't change the fact that action-reaction forces are equal. What it changes is the TIME these forces act (that's Law 2!). So the forces are still equal and opposite, but they're smaller forces acting for longer time.</p>
+                        </div>
+                    </div>
+
+                    <div class="calc-box">
+                        <h3>📐 Force Pair #1: Car and Wall</h3>
+                        <p style="margin-bottom: 20px;">Let's calculate both scenarios to see how action-reaction pairs work</p>
+                        
+                        <div style="padding: 20px; background: #e0f2fe; border-radius: 12px; margin-bottom: 20px;">
+                            <strong style="color: #0369a1;">Car's momentum change:</strong> Δp = 1,500 kg × 20 m/s = 30,000 kg·m/s
+                        </div>
+                        
+                        <div style="margin-bottom: 30px;">
+                            <h4 style="color: #dc2626; margin-bottom: 15px;">WITHOUT Crumple Zone (Δt = 0.01s):</h4>
+                            <div class="calc-step">
+                                F<sub>car→wall</sub> = 30,000 / 0.01 = 3,000,000 N →
+                            </div>
+                            <div style="margin: 15px 0; text-align: center; font-size: 2.5em;">⚖️</div>
+                            <div class="calc-step result" style="background: #fee2e2; border-color: #dc2626;">
+                                F<sub>wall→car</sub> = 3,000,000 N ← (EQUAL & OPPOSITE!)
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 style="color: #059669; margin-bottom: 15px;">WITH Crumple Zone (Δt = 0.10s):</h4>
+                            <div class="calc-step">
+                                F<sub>car→wall</sub> = 30,000 / 0.10 = 300,000 N →
+                            </div>
+                            <div style="margin: 15px 0; text-align: center; font-size: 2.5em;">⚖️</div>
+                            <div class="calc-step result" style="background: #d1fae5; border-color: #059669;">
+                                F<sub>wall→car</sub> = 300,000 N ← (EQUAL & OPPOSITE!)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="calc-box" style="margin-top: 30px;">
+                        <h3>📐 Force Pair #2: Seatbelt and Passenger</h3>
+                        <p style="margin-bottom: 20px;">These forces are happening at the same time during the collision</p>
+                        
+                        <div class="calc-step">
+                            F<sub>seatbelt→passenger</sub> = 14,000 N ← (pulling you back, stopping you)
+                        </div>
+                        <div style="margin: 20px 0; text-align: center; font-size: 3em; color: #95e1d3;">⚖️ EQUAL & OPPOSITE</div>
+                        <div class="calc-step result" style="background: #d1fae5;">
+                            F<sub>passenger→seatbelt</sub> = 14,000 N → (you pulling on the belt)
+                        </div>
+                        
+                        <div style="margin-top: 25px; padding: 25px; background: #ecfdf5; border-radius: 12px; border-left: 5px solid #059669;">
+                            <strong style="color: #065f46; font-size: 1.3em;">💡 Why Seatbelts Must Be Strong</strong>
+                            <p style="color: #065f46; margin-top: 10px; font-size: 1.15em; line-height: 1.7;">The seatbelt experiences 14,000 N of force from YOU pulling on it. That's why modern seatbelts are made from ultra-high-strength webbing (same material as rock climbing gear!) and are bolted to the car frame at multiple points. They're designed to handle these enormous forces while distributing the pressure across your chest and hips to protect your body.</p>
+                        </div>
+                    </div>
+
+                    <div class="insight-box">
+                        <h4>🔑 The Most Important Thing to Remember</h4>
+                        <p>Action-reaction forces are ALWAYS equal in magnitude, no matter what. The crumple zone doesn't make them unequal—it can't, that would break Newton's Third Law! What the crumple zone does is change the TIME over which these forces act (that's Law 2 again!). So the forces are still equal pairs, but they're SMALLER equal pairs because the time is longer.</p>
+                    </div>
+
+                    <div class="pause-box">
+                        <h4>⏸️ Feel It Yourself</h4>
+                        <p>Push hard on your desk right now. You feel the desk pushing back on your hand, right? That's an action-reaction pair! The harder you push, the harder it pushes back—always equal!</p>
+                    </div>
+
+                    <div class="check-box">
+                        <h4>✓ Check Your Understanding</h4>
+                        
+                        <div class="check-question">
+                            <span class="question-label">❓ Question 1:</span>
+                            <p class="question-text">If the car pushes on the wall with 300,000 N, how hard does the wall push back on the car? Explain WHY these forces are always equal.</p>
+                        </div>
+                        
+                        <div class="check-question">
+                            <span class="question-label">❓ Question 2:</span>
+                            <p class="question-text">The wall doesn't move even though it experiences a huge force. Why not? (Hint: Think about mass and F=ma!)</p>
+                        </div>
+                        
+                        <div class="check-question">
+                            <span class="question-label">🔥 Challenge:</span>
+                            <p class="question-text">Identify a THIRD action-reaction force pair in this collision scenario. (Hint: Think about the passenger's back pressing against the car seat before the crash...)</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Synthesis -->
+            <section class="synthesis-section" aria-labelledby="synthesis-heading">
+                <h2 id="synthesis-heading">🔗 How All Three Laws Work Together</h2>
+                
+                <div class="law-summary-grid">
+                    <div class="law-summary-card law1">
+                        <span class="law-badge">Law 1: Inertia</span>
+                        <h4>The Problem</h4>
+                        <p>Passenger wants to keep moving at 20 m/s due to inertia. They have 14,000 J of kinetic energy that needs to be safely absorbed.</p>
+                    </div>
+                    
+                    <div class="law-summary-card law2">
+                        <span class="law-badge">Law 2: F=ma</span>
+                        <h4>The Solution</h4>
+                        <p>Extend collision time from 0.01s to 0.10s using crumple zones. This reduces force from 140,000N (fatal) to 14,000N (survivable)!</p>
+                    </div>
+                    
+                    <div class="law-summary-card law3">
+                        <span class="law-badge">Law 3: Pairs</span>
+                        <h4>The Forces</h4>
+                        <p>Seatbelt pulls back on passenger (14,000N). Passenger pulls forward on seatbelt (14,000N). Equal and opposite forces!</p>
+                    </div>
+                </div>
+
+                <div class="story-flow">
+                    <h3>The Complete Physics Story, Step by Step</h3>
+                    
+                    <div class="flow-step">
+                        <div class="flow-number">1</div>
+                        <div class="flow-content">
+                            <p><strong style="color: #ff6b9d;">Law 1 (Inertia):</strong> Before the crash, you and the car are both cruising at 20 m/s. You want to keep moving at this speed forever—that's your inertia. You have 14,000 J of kinetic energy representing your motion.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-arrow-down">↓</div>
+                    
+                    <div class="flow-step">
+                        <div class="flow-number">2</div>
+                        <div class="flow-content">
+                            <p><strong style="color: #95e1d3;">Law 3 (Action-Reaction):</strong> At the instant of impact (t = 0), the car pushes on the wall with millions of Newtons. The wall pushes back on the car with equal force. These action-reaction pairs begin the collision process.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-arrow-down">↓</div>
+                    
+                    <div class="flow-step">
+                        <div class="flow-number">3</div>
+                        <div class="flow-content">
+                            <p><strong style="color: #4ecdc4;">Law 2 (F=ma):</strong> During the collision (0.01s to 0.10s), the crumple zone deforms, extending the time. Using F = Δp/Δt, this reduces the force on you from a deadly 140,000N to a survivable 14,000N.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-arrow-down">↓</div>
+                    
+                    <div class="flow-step">
+                        <div class="flow-number">4</div>
+                        <div class="flow-content">
+                            <p><strong style="color: #95e1d3;">Law 3 (Action-Reaction)</strong> + <strong style="color: #ff6b9d;">Law 1 (Inertia):</strong> The seatbelt applies 14,000N backward on you. You pull 14,000N forward on the seatbelt (action-reaction pair). This force overcomes your inertia, safely bringing you to rest.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-arrow-down">↓</div>
+                    
+                    <div class="flow-step">
+                        <div class="flow-number">5</div>
+                        <div class="flow-content">
+                            <p><strong style="color: #d97706;">All Three Laws Together:</strong> Law 1 explained WHY we need safety equipment (to overcome inertia). Law 2 explained HOW to reduce forces (extend time). Law 3 explained WHERE forces act (in equal-opposite pairs). Every single safety feature uses ALL THREE laws working together!</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Engineering Applications -->
+            <section class="engineering-section" aria-labelledby="engineering-heading">
+                <h2 id="engineering-heading">🛠️ Real Engineering: How Cars Use These Laws</h2>
+                
+                <div class="engineering-grid">
+                    <div class="engineering-card">
+                        <h4>🔧 Crumple Zones</h4>
+                        <div class="law-tags">
+                            <span class="law-tag law2">Law 2</span>
+                        </div>
+                        <p>Designed to deform in a controlled way during crashes, extending collision time from ~0.01s to ~0.10s and reducing forces by 90%.</p>
+                        <div class="key-principle">
+                            <strong>Key principle:</strong> Increase Δt to decrease F
+                        </div>
+                    </div>
+                    
+                    <div class="engineering-card">
+                        <h4>🎈 Airbags</h4>
+                        <div class="law-tags">
+                            <span class="law-tag law1">Law 1</span>
+                            <span class="law-tag law2">Law 2</span>
+                        </div>
+                        <p>Catches the passenger (who wants to keep moving forward), spreads force over a larger body area, and adds more time to the collision.</p>
+                        <div class="key-principle">
+                            <strong>Key principle:</strong> Overcome inertia + extend time + distribute force
+                        </div>
+                    </div>
+                    
+                    <div class="engineering-card">
+                        <h4>🔒 Seatbelts</h4>
+                        <div class="law-tags">
+                            <span class="law-tag law3">Law 3</span>
+                        </div>
+                        <p>Creates action-reaction force pairs to stop the passenger. Must handle equal-opposite forces while distributing them safely across strong bones.</p>
+                        <div class="key-principle">
+                            <strong>Key principle:</strong> Equal-opposite force pairs
+                        </div>
+                    </div>
+                    
+                    <div class="engineering-card">
+                        <h4>⚡ Energy Absorption Systems</h4>
+                        <div class="law-tags">
+                            <span class="law-tag law1">Law 1</span>
+                            <span class="law-tag law2">Law 2</span>
+                        </div>
+                        <p>Converts the passenger's kinetic energy (14,000 J) into deformation of safety structures instead of injury to the passenger.</p>
+                        <div class="key-principle">
+                            <strong>Key principle:</strong> Redirect and absorb energy safely
+                        </div>
+                    </div>
+                    
+                    <div class="engineering-card">
+                        <h4>🎯 Crash Testing</h4>
+                        <div class="law-tags">
+                            <span class="law-tag law1">Law 1</span>
+                            <span class="law-tag law2">Law 2</span>
+                            <span class="law-tag law3">Law 3</span>
+                        </div>
+                        <p>Engineers use these equations to predict forces before building prototypes. Modern crash test dummies have sensors that measure all three laws in action!</p>
+                        <div class="key-principle">
+                            <strong>Key principle:</strong> Test and verify all three laws
+                        </div>
+                    </div>
+                    
+                    <div class="engineering-card">
+                        <h4>📊 Real-World Impact</h4>
+                        <div class="law-tags">
+                            <span class="law-tag law1">Law 1</span>
+                            <span class="law-tag law2">Law 2</span>
+                            <span class="law-tag law3">Law 3</span>
+                        </div>
+                        <p>Traffic fatality rates have dropped 80% since 1960 thanks to these physics principles being applied to car design!</p>
+                        <div class="key-principle">
+                            <strong>Physics literally saves lives!</strong>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Reference -->
+            <section class="reference-section" aria-labelledby="reference-heading">
+                <h2 id="reference-heading">📋 Quick Reference Guide</h2>
+                
+                <div class="reference-grid">
+                    <div class="reference-card law1">
+                        <h4>Law 1: Inertia</h4>
+                        <div class="formula-display">
+                            KE = ½mv²
+                        </div>
+                        <p><strong>Key Idea:</strong> Objects resist changes in motion</p>
+                        <p><strong>In Crashes:</strong> Explains why passengers continue forward when car stops</p>
+                        <p><strong>Solution:</strong> Seatbelts provide force to overcome inertia</p>
+                    </div>
+                    
+                    <div class="reference-card law2">
+                        <h4>Law 2: F=ma</h4>
+                        <div class="formula-display">
+                            F = Δp/Δt
+                        </div>
+                        <p><strong>Key Idea:</strong> Force depends on momentum change over time</p>
+                        <p><strong>In Crashes:</strong> Longer collision time = smaller force</p>
+                        <p><strong>Solution:</strong> Crumple zones extend time to reduce force</p>
+                    </div>
+                    
+                    <div class="reference-card law3">
+                        <h4>Law 3: Action-Reaction</h4>
+                        <div class="formula-display">
+                            F<sub>A→B</sub> = -F<sub>B→A</sub>
+                        </div>
+                        <p><strong>Key Idea:</strong> Forces always come in equal-opposite pairs</p>
+                        <p><strong>In Crashes:</strong> Car pushes wall; wall pushes car equally</p>
+                        <p><strong>Solution:</strong> Seatbelt/passenger create force pair to stop together</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="footer">
+                <h2>🎓 You're Now a Physics Expert!</h2>
+                <div class="footer-content">
+                    <p>Every time you get in a car, Newton's Three Laws are working 24/7 to keep you safe. These aren't just abstract concepts from a 300-year-old textbook—they're the invisible forces that protect millions of people every single day.</p>
+                    
+                    <p style="margin-top: 25px;">Think about how cool this is: The same equations you just learned are used by engineers at Tesla, Ford, Toyota, and every other car company to design vehicles that save lives. You now understand the physics that makes modern cars 10× safer than cars from your grandparents' generation!</p>
+                    
+                    <div class="stats-box">
+                        <h3>📈 The Real Numbers</h3>
+                        <p><strong>1960:</strong> ~52,000 traffic deaths/year (74 million cars)</p>
+                        <p><strong>2024:</strong> ~42,000 deaths/year (290 million cars)</p>
+                        <p style="margin-top: 15px; font-weight: 700; font-size: 1.4em; color: #d97706;">
+                            Per-vehicle death rate reduced by ~80% using these exact physics principles!
+                        </p>
+                        <p style="margin-top: 20px; padding: 20px; background: #fef3c7; border-radius: 12px; color: #78350f;">
+                            <strong>That means:</strong> If cars still had 1960s safety levels, we'd have over 200,000 deaths per year instead of 42,000. Physics saves ~160,000 lives EVERY YEAR in the US alone. And YOU now understand exactly how!
+                        </p>
+                    </div>
+                    
+                    <p style="margin-top: 30px; font-size: 1.3em; font-weight: 600; color: #d97706;">
+                        Understanding physics isn't just about passing a test—it's about understanding the forces that shape our world and save lives. You're awesome for taking the time to really learn this! 🌟
+                    </p>
+                </div>
+            </footer>
+        </main>
+    </div>
+</body>
+</html>
