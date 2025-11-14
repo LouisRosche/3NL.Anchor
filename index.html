@@ -922,12 +922,337 @@
             border-width: 0;
         }
         
+        /* Misconception Boxes */
+        .misconception-box {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            border: 4px solid #dc2626;
+            border-radius: 16px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .misconception-box h4 {
+            color: #991b1b;
+            font-size: 1.6em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .wrong {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 15px 0;
+            border-left: 5px solid #dc2626;
+        }
+
+        .right {
+            background: #d1fae5;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 15px 0;
+            border-left: 5px solid #059669;
+        }
+
+        .evidence {
+            background: #e0f2fe;
+            padding: 18px;
+            border-radius: 10px;
+            margin-top: 15px;
+            font-size: 1.05em;
+        }
+
+        /* Intuition Bridge */
+        .intuition-bridge {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-radius: 16px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 3px solid #f59e0b;
+        }
+
+        .intuition-bridge h4 {
+            color: #d97706;
+            font-size: 1.6em;
+            margin-bottom: 20px;
+        }
+
+        .intuition-bridge p {
+            font-size: 1.15em;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        /* Retrieval Check */
+        .retrieval-check {
+            background: #f3f4f6;
+            border-left: 6px solid #6366f1;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+        }
+
+        .retrieval-check p {
+            font-weight: 600;
+            color: #4338ca;
+            margin-bottom: 15px;
+        }
+
+        .retrieval-check ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .retrieval-check li {
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .retrieval-check details {
+            margin-top: 15px;
+        }
+
+        .retrieval-check summary {
+            cursor: pointer;
+            padding: 12px 20px;
+            background: #6366f1;
+            color: white;
+            border-radius: 8px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .retrieval-check details[open] summary {
+            margin-bottom: 15px;
+        }
+
+        /* Expert Strategy Box */
+        .expert-strategy {
+            background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
+            border-radius: 16px;
+            padding: 35px;
+            margin: 35px 0;
+            border: 3px solid #6366f1;
+        }
+
+        .expert-strategy h4 {
+            color: #4338ca;
+            font-size: 1.7em;
+            margin-bottom: 25px;
+        }
+
+        .strategy-step {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            border-left: 5px solid #6366f1;
+        }
+
+        .strategy-step strong {
+            color: #4338ca;
+            font-size: 1.2em;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        /* Transfer Challenge */
+        .transfer-challenge {
+            background: linear-gradient(135deg, #fae8ff 0%, #f3e8ff 100%);
+            border-radius: 16px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 3px solid #a855f7;
+        }
+
+        .transfer-challenge h4 {
+            color: #7e22ce;
+            font-size: 1.6em;
+            margin-bottom: 20px;
+        }
+
+        /* Variation Theory Box */
+        .variation-set {
+            background: white;
+            border-radius: 16px;
+            padding: 35px;
+            margin: 35px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .variation-set h4 {
+            color: #1e3c72;
+            font-size: 1.7em;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .variation-set table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .variation-set th {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-size: 1.1em;
+        }
+
+        .variation-set td {
+            padding: 15px;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 1.1em;
+        }
+
+        .variation-set tr:hover {
+            background: #f3f4f6;
+        }
+
+        .vary {
+            background: #fef3c7;
+            font-weight: 700;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .result {
+            color: #059669;
+            font-weight: 700;
+        }
+
+        .insight {
+            background: #e0f2fe;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            border-left: 5px solid #0284c7;
+        }
+
+        /* Productive Struggle Box */
+        .productive-struggle {
+            background: linear-gradient(135deg, #ffedd5 0%, #fed7aa 100%);
+            border-radius: 16px;
+            padding: 30px;
+            margin: 35px 0;
+            border: 4px dashed #ea580c;
+        }
+
+        .productive-struggle h4 {
+            color: #c2410c;
+            font-size: 1.6em;
+            margin-bottom: 20px;
+        }
+
+        .productive-struggle textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 15px;
+            border: 2px solid #ea580c;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1.1em;
+            margin-top: 15px;
+        }
+
+        .after-discussion {
+            margin-top: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            font-weight: 600;
+            color: #c2410c;
+        }
+
+        /* Confidence Check */
+        .confidence-check {
+            background: #fef3c7;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+            border: 3px solid #f59e0b;
+        }
+
+        .confidence-scale {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+
+        .confidence-scale button {
+            padding: 12px 20px;
+            border: 2px solid #f59e0b;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .confidence-scale button:hover {
+            background: #f59e0b;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Force Diagram Box */
+        .force-diagram-scaffold {
+            background: white;
+            border-radius: 16px;
+            padding: 35px;
+            margin: 35px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .force-diagram-scaffold h3 {
+            color: #1e3c72;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .diagram-steps {
+            display: grid;
+            gap: 20px;
+        }
+
+        .diagram-steps .step {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 5px solid #667eea;
+        }
+
+        .diagram-steps .step strong {
+            color: #667eea;
+            font-size: 1.2em;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .common-error {
+            background: #fee2e2;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            border-left: 5px solid #dc2626;
+        }
+
+        .common-error strong {
+            color: #991b1b;
+        }
+
         /* Focus styles for accessibility */
         *:focus-visible {
             outline: 3px solid #3b82f6;
             outline-offset: 2px;
         }
-        
+
         /* Print styles */
         @media print {
             body {
@@ -1025,6 +1350,18 @@
                 </div>
             </section>
 
+            <!-- Productive Struggle Challenge -->
+            <section>
+                <div class="productive-struggle">
+                    <h4>🤔 Try This BEFORE We Explain</h4>
+                    <p style="font-size: 1.2em;">You have 2 minutes. Using only what you already know (don't look ahead!), predict:</p>
+                    <p style="font-size: 1.15em; margin-top: 15px;"><strong>Question:</strong> Which collision would be SAFER for the passenger - hitting a solid concrete wall, or hitting a wall made of thick foam that crumples slowly?</p>
+                    <p style="font-size: 1.15em; margin-top: 10px;"><strong>Why do you think so?</strong> Explain your reasoning using whatever physics you already know.</p>
+                    <textarea placeholder="Write your prediction and reasoning here... (Don't worry about being right—we're activating what you already know!)"></textarea>
+                    <p class="after-discussion"><strong>Now let's see if your intuition matches the physics...</strong> As you read through the three laws, check back here to see if your prediction was correct!</p>
+                </div>
+            </section>
+
             <!-- Law 1: Inertia -->
             <section class="law-section law1-section" aria-labelledby="law1-heading">
                 <div class="law-header">
@@ -1034,6 +1371,20 @@
                 <div class="law-body">
                     <div class="statement-box">
                         "An object at rest stays at rest, and an object in motion stays in motion at constant velocity, unless acted upon by an unbalanced force."
+                    </div>
+
+                    <div class="misconception-box">
+                        <h4>🚫 Common Misconception Alert!</h4>
+                        <p class="wrong">❌ <strong>WRONG:</strong> "The car needs force to keep moving at 20 m/s"</p>
+                        <p class="right">✓ <strong>RIGHT:</strong> "The car continues at 20 m/s WITH NO FORCE—that's inertia! Force is only needed to CHANGE motion (speed up, slow down, turn)."</p>
+                        <p class="evidence"><strong>Research shows</strong> (Hestenes, 1992 - Force Concept Inventory): 85% of students incorrectly believe moving objects need continuous force. Watch for this trap!</p>
+                    </div>
+
+                    <div class="intuition-bridge">
+                        <h4>🧠 Building Scientific Intuition</h4>
+                        <p><strong>Your gut feeling:</strong> "Heavy things are harder to stop because they have more force."</p>
+                        <p><strong>Scientific reality:</strong> Heavy things are harder to stop because they have more <em>inertia</em> (more mass). The force needed = mass × acceleration (F=ma). Same deceleration of a heavier object requires MORE force, but the object doesn't "contain" force—force must be APPLIED to it.</p>
+                        <p><strong>Why this matters:</strong> The 70 kg passenger doesn't "have" 14,000 N inside them. That's the force the seatbelt must APPLY to stop them. Bigger mass = more force needed to change their motion.</p>
                     </div>
 
                     <div class="thinking-box">
@@ -1117,6 +1468,21 @@
                             <span class="question-label">🔥 Challenge:</span>
                             <p class="question-text">If the car were moving at 40 m/s instead of 20 m/s, how would the passenger's kinetic energy change? (Hint: KE depends on v², so if v doubles, what happens to KE?)</p>
                         </div>
+                    </div>
+
+                    <div class="retrieval-check">
+                        <p><strong>⏸️ Before reading ahead:</strong> Without looking back, write down:</p>
+                        <ol>
+                            <li>What is inertia?</li>
+                            <li>Why do passengers move forward when a car suddenly stops?</li>
+                            <li>What force stops the passenger from going through the windshield?</li>
+                        </ol>
+                        <details>
+                            <summary>Check your answers</summary>
+                            <p><strong>1.</strong> Inertia is an object's resistance to changes in motion. Objects want to keep doing what they're doing.</p>
+                            <p><strong>2.</strong> The passenger has inertia. When the car stops, the passenger's body still wants to keep moving at 20 m/s.</p>
+                            <p><strong>3.</strong> The seatbelt applies the force needed to stop the passenger and bring them to rest with the car.</p>
+                        </details>
                     </div>
                 </div>
             </section>
@@ -1255,6 +1621,76 @@
                         <p>Imagine catching a water balloon. If you catch it with stiff arms (quick stop), it pops. If you catch it and move your arms backward (extending the time), it doesn't pop. Same momentum change, different time = different force!</p>
                     </div>
 
+                    <div class="variation-set">
+                        <h4>Understanding F=Δp/Δt Through Variation</h4>
+                        <p style="text-align: center; margin-bottom: 20px;">Let's systematically vary each factor to see how it affects force:</p>
+                        <table>
+                            <tr>
+                                <th>Scenario</th>
+                                <th>m (kg)</th>
+                                <th>Δv (m/s)</th>
+                                <th>Δt (s)</th>
+                                <th>F (N)</th>
+                            </tr>
+                            <tr>
+                                <td>1. Baseline (our passenger)</td>
+                                <td>70</td>
+                                <td>20</td>
+                                <td>0.10</td>
+                                <td class="result">14,000</td>
+                            </tr>
+                            <tr>
+                                <td>2. Heavier passenger</td>
+                                <td class="vary">140 (2×)</td>
+                                <td>20</td>
+                                <td>0.10</td>
+                                <td class="result">28,000 (2×)</td>
+                            </tr>
+                            <tr>
+                                <td>3. Faster collision</td>
+                                <td>70</td>
+                                <td class="vary">40 (2×)</td>
+                                <td>0.10</td>
+                                <td class="result">28,000 (2×)</td>
+                            </tr>
+                            <tr>
+                                <td>4. Shorter collision time</td>
+                                <td>70</td>
+                                <td>20</td>
+                                <td class="vary">0.05 (½)</td>
+                                <td class="result">28,000 (2×)</td>
+                            </tr>
+                            <tr>
+                                <td>5. Double mass AND time</td>
+                                <td class="vary">140 (2×)</td>
+                                <td>20</td>
+                                <td class="vary">0.20 (2×)</td>
+                                <td class="result">14,000 (same!)</td>
+                            </tr>
+                        </table>
+                        <p class="insight"><strong>Pattern you should see:</strong> F increases when numerator increases (more mass or speed) and decreases when denominator increases (more time). When both mass and time double, they cancel out!</p>
+                    </div>
+
+                    <div class="expert-strategy">
+                        <h4>🎯 Expert Problem-Solving Strategy</h4>
+                        <p style="margin-bottom: 20px;">Here's how experts approach collision problems systematically:</p>
+                        <div class="strategy-step">
+                            <strong>Step 1 - Understand:</strong> What's the question asking? What's changing in this collision? Identify what you know and what you need to find.
+                        </div>
+                        <div class="strategy-step">
+                            <strong>Step 2 - Plan:</strong> Which formula do I need? For collisions, it's F=Δp/Δt. Do I have Δp and Δt? If not, can I calculate them from what I know?
+                        </div>
+                        <div class="strategy-step">
+                            <strong>Step 3 - Calculate Δp first:</strong> Δp = m×Δv = m×(v<sub>final</sub> - v<sub>initial</sub>). This tells you how much momentum changed.
+                        </div>
+                        <div class="strategy-step">
+                            <strong>Step 4 - Calculate F:</strong> Divide Δp by Δt. Watch your units! kg·m/s divided by s gives you Newtons.
+                        </div>
+                        <div class="strategy-step">
+                            <strong>Step 5 - Check reasonableness:</strong> Is 14,000 N reasonable? Compare to known forces (weight of a car ~15,000 N). Does it make sense given the situation?
+                        </div>
+                    </div>
+
                     <div class="check-box">
                         <h4>✓ Check Your Understanding</h4>
                         
@@ -1272,6 +1708,36 @@
                             <span class="question-label">🔥 Challenge:</span>
                             <p class="question-text">An airbag adds another 0.05 seconds to the collision time (so total time = 0.15s). Calculate the NEW force with both the crumple zone AND airbag working together. How much better is this than just the crumple zone alone?</p>
                         </div>
+                    </div>
+
+                    <div class="transfer-challenge">
+                        <h4>🚀 Apply to New Context</h4>
+                        <p><strong>Scenario:</strong> A 145g baseball (0.145 kg) hits a catcher's mitt at 40 m/s. The mitt stops it in 0.05 seconds. What force does the catcher feel?</p>
+                        <p style="margin-top: 15px;"><strong>Strategy hint:</strong> This is the SAME F=Δp/Δt formula! Different numbers, same physics.</p>
+                        <p style="margin-top: 15px;"><strong>Try it yourself, then check below ↓</strong></p>
+                        <details style="margin-top: 20px;">
+                            <summary style="padding: 15px 25px; background: #7e22ce; color: white; border-radius: 10px; cursor: pointer; font-weight: 700;">Show Solution</summary>
+                            <div style="background: white; padding: 25px; border-radius: 12px; margin-top: 15px;">
+                                <p><strong>Step 1:</strong> Calculate Δp = m×Δv = 0.145 kg × 40 m/s = 5.8 kg·m/s</p>
+                                <p><strong>Step 2:</strong> Calculate F = Δp/Δt = 5.8 / 0.05 = <strong>116 N</strong></p>
+                                <p style="margin-top: 15px; padding: 15px; background: #f0fdf4; border-radius: 8px;"><strong>Comparison:</strong> That's way less than the car crash (14,000 N) because the baseball has much less mass. Same formula, dramatically different result because of the numbers!</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <div class="retrieval-check">
+                        <p><strong>⏸️ Before continuing to Law 3:</strong> Test yourself without looking back:</p>
+                        <ol>
+                            <li>What's the formula for force in a collision?</li>
+                            <li>Which variable can engineers control to reduce force in crashes?</li>
+                            <li>Why does extending collision time from 0.01s to 0.10s reduce force by 90%?</li>
+                        </ol>
+                        <details>
+                            <summary>Check your answers</summary>
+                            <p><strong>1.</strong> F = Δp/Δt (force equals change in momentum divided by time)</p>
+                            <p><strong>2.</strong> Time (Δt). Δp is fixed (must stop the person), but we can extend the time using crumple zones.</p>
+                            <p><strong>3.</strong> Because F = Δp/Δt is a fraction. When you make the denominator 10× bigger, the whole fraction becomes 10× smaller. Math!</p>
+                        </details>
                     </div>
                 </div>
             </section>
@@ -1403,6 +1869,64 @@
                 </div>
             </section>
 
+            <!-- Force Diagram Pedagogy -->
+            <section class="force-diagram-scaffold">
+                <h3>🎯 Drawing Force Diagrams: Expert Strategy</h3>
+                <p style="text-align: center; margin-bottom: 30px; font-size: 1.2em;">Force diagrams are THE tool physicists use to analyze situations. Here's the systematic approach:</p>
+
+                <div class="diagram-steps">
+                    <div class="step">
+                        <strong>Step 1: Draw object as a dot or simple shape</strong>
+                        <p>Simplify! Draw the car or person as a box or dot. We're focusing on forces, not realistic drawings.</p>
+                        <div style="text-align: center; margin-top: 15px;">
+                            <svg width="100" height="80" style="background: #f8f9fa; border-radius: 8px;">
+                                <rect x="35" y="30" width="30" height="20" fill="#3498db" stroke="#000" stroke-width="2"/>
+                                <text x="50" y="67" font-size="10" text-anchor="middle">Car</text>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <strong>Step 2: Identify ALL forces acting ON this object</strong>
+                        <p>✓ Wall pushes LEFT on car (this is what we want!)</p>
+                        <p>✗ NOT "car pushes on wall" - that's a force the car exerts, not a force ON the car</p>
+                        <p style="margin-top: 10px; padding: 12px; background: #fff3cd; border-radius: 8px;"><strong>Key Rule:</strong> Only show forces acting ON the object you're analyzing. Action-reaction pairs act on DIFFERENT objects!</p>
+                    </div>
+
+                    <div class="step">
+                        <strong>Step 3: Draw arrows FROM the center of your object</strong>
+                        <p><strong>Arrow length</strong> = force magnitude (bigger force = longer arrow)</p>
+                        <p><strong>Arrow direction</strong> = direction force acts</p>
+                        <div style="text-align: center; margin-top: 15px;">
+                            <svg width="200" height="80" style="background: #f8f9fa; border-radius: 8px;">
+                                <rect x="85" y="30" width="30" height="20" fill="#3498db" stroke="#000" stroke-width="2"/>
+                                <!-- Force arrow pointing left -->
+                                <line x1="85" y1="40" x2="30" y2="40" stroke="#dc2626" stroke-width="3" marker-end="url(#arrowhead)"/>
+                                <defs>
+                                    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="5" refY="3" orient="auto">
+                                        <polygon points="0 0, 10 3, 0 6" fill="#dc2626"/>
+                                    </marker>
+                                </defs>
+                                <text x="50" y="30" font-size="12" fill="#dc2626" font-weight="bold">F</text>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <strong>Step 4: Label each arrow with magnitude and direction</strong>
+                        <p>F<sub>wall→car</sub> = 300,000 N ← (direction matters!)</p>
+                        <p>Be specific: Use subscripts to show WHAT exerts the force ON WHAT</p>
+                    </div>
+                </div>
+
+                <div class="common-error">
+                    <p><strong>⚠️ Common Error:</strong> Drawing both action AND reaction forces on the same diagram!</p>
+                    <p style="margin-top: 10px;">WRONG: Showing both "car pushes wall" AND "wall pushes car" on the car's force diagram.</p>
+                    <p style="margin-top: 10px;">RIGHT: Car's diagram shows ONLY forces ON the car (wall→car). Wall's diagram shows ONLY forces ON the wall (car→wall). They're separate diagrams!</p>
+                    <p style="margin-top: 15px; padding: 15px; background: #fef3c7; border-radius: 8px;"><strong>Remember:</strong> Action-reaction force pairs act on DIFFERENT objects, so they go on DIFFERENT force diagrams. This is the #1 mistake students make!</p>
+                </div>
+            </section>
+
             <!-- Synthesis -->
             <section class="synthesis-section" aria-labelledby="synthesis-heading">
                 <h2 id="synthesis-heading">🔗 How All Three Laws Work Together</h2>
@@ -1472,6 +1996,56 @@
                             <p><strong style="color: #d97706;">All Three Laws Together:</strong> Law 1 explained WHY we need safety equipment (to overcome inertia). Law 2 explained HOW to reduce forces (extend time). Law 3 explained WHERE forces act (in equal-opposite pairs). Every single safety feature uses ALL THREE laws working together!</p>
                         </div>
                     </div>
+                </div>
+            </section>
+
+            <!-- Confidence Check -->
+            <section>
+                <div class="confidence-check">
+                    <h4 style="color: #d97706; font-size: 1.7em; margin-bottom: 20px;">📊 Self-Assessment: How Well Do You Understand?</h4>
+                    <p style="font-size: 1.15em; margin-bottom: 20px;">Rate your confidence for each law (1=no clue, 5=can teach it):</p>
+
+                    <div style="margin-bottom: 25px;">
+                        <p style="font-weight: 700; font-size: 1.2em; margin-bottom: 12px;">Law 1 (Inertia): "I can explain why passengers move forward when cars stop"</p>
+                        <div class="confidence-scale">
+                            <button>1 - No clue</button>
+                            <button>2 - Confused</button>
+                            <button>3 - Getting it</button>
+                            <button>4 - Pretty sure</button>
+                            <button>5 - Can teach it!</button>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 25px;">
+                        <p style="font-weight: 700; font-size: 1.2em; margin-bottom: 12px;">Law 2 (F=Δp/Δt): "I can explain why crumple zones save lives"</p>
+                        <div class="confidence-scale">
+                            <button>1 - No clue</button>
+                            <button>2 - Confused</button>
+                            <button>3 - Getting it</button>
+                            <button>4 - Pretty sure</button>
+                            <button>5 - Can teach it!</button>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 25px;">
+                        <p style="font-weight: 700; font-size: 1.2em; margin-bottom: 12px;">Law 3 (Action-Reaction): "I can explain why forces are always equal pairs"</p>
+                        <div class="confidence-scale">
+                            <button>1 - No clue</button>
+                            <button>2 - Confused</button>
+                            <button>3 - Getting it</button>
+                            <button>4 - Pretty sure</button>
+                            <button>5 - Can teach it!</button>
+                        </div>
+                    </div>
+
+                    <details style="margin-top: 25px;">
+                        <summary style="padding: 15px 25px; background: #f59e0b; color: white; border-radius: 10px; cursor: pointer; font-weight: 700;">If you rated anything 1-3, click here for targeted review</summary>
+                        <div style="background: white; padding: 25px; border-radius: 12px; margin-top: 15px;">
+                            <p><strong>Law 1 struggling?</strong> Re-read the misconception box and intuition bridge. Remember: objects don't need force to maintain motion!</p>
+                            <p style="margin-top: 15px;"><strong>Law 2 struggling?</strong> Focus on the variation table. F=Δp/Δt is a fraction - increasing bottom decreases the whole thing!</p>
+                            <p style="margin-top: 15px;"><strong>Law 3 struggling?</strong> Review the force diagram section. Action-reaction pairs act on DIFFERENT objects always!</p>
+                        </div>
+                    </details>
                 </div>
             </section>
 
@@ -1587,6 +2161,58 @@
                         <p><strong>Key Idea:</strong> Forces always come in equal-opposite pairs</p>
                         <p><strong>In Crashes:</strong> Car pushes wall; wall pushes car equally</p>
                         <p><strong>Solution:</strong> Seatbelt/passenger create force pair to stop together</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Research-Based Learning Approaches -->
+            <section style="background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%); padding: 50px 40px; border-radius: 24px; margin: 60px 0;">
+                <h2 style="color: #4338ca; text-align: center; margin-bottom: 40px; font-size: clamp(2em, 4vw, 2.8em);">🎓 Evidence-Based Learning Features</h2>
+                <div style="max-width: 1200px; margin: 0 auto;">
+                    <p style="text-align: center; font-size: 1.2em; margin-bottom: 40px; color: #3730a3;">This document incorporates cutting-edge research from cognitive science and physics education:</p>
+
+                    <div style="display: grid; gap: 25px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+                        <div style="background: white; padding: 25px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                            <h4 style="color: #4338ca; margin-bottom: 15px; font-size: 1.4em;">🚫 Misconception Addressing</h4>
+                            <p style="font-size: 1.05em; line-height: 1.7;"><strong>Research:</strong> Hestenes et al. (1992) - Force Concept Inventory identified key physics misconceptions</p>
+                            <p style="font-size: 1.05em; line-height: 1.7; margin-top: 10px;"><strong>Our approach:</strong> Explicit misconception boxes with research citations</p>
+                        </div>
+
+                        <div style="background: white; padding: 25px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                            <h4 style="color: #4338ca; margin-bottom: 15px; font-size: 1.4em;">🔄 Retrieval Practice</h4>
+                            <p style="font-size: 1.05em; line-height: 1.7;"><strong>Research:</strong> Roediger & Karpicke (2006) - Testing effect enhances retention</p>
+                            <p style="font-size: 1.05em; line-height: 1.7; margin-top: 10px;"><strong>Our approach:</strong> Spaced retrieval checks with delayed feedback throughout</p>
+                        </div>
+
+                        <div style="background: white; padding: 25px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                            <h4 style="color: #4338ca; margin-bottom: 15px; font-size: 1.4em;">🧠 Metacognition</h4>
+                            <p style="font-size: 1.05em; line-height: 1.7;"><strong>Research:</strong> Schoenfeld (1992) - Expert problem-solving strategies</p>
+                            <p style="font-size: 1.05em; line-height: 1.7; margin-top: 10px;"><strong>Our approach:</strong> Expert strategy boxes and confidence self-assessment</p>
+                        </div>
+
+                        <div style="background: white; padding: 25px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                            <h4 style="color: #4338ca; margin-bottom: 15px; font-size: 1.4em;">🚀 Transfer Learning</h4>
+                            <p style="font-size: 1.05em; line-height: 1.7;"><strong>Research:</strong> Bransford & Schwartz (1999) - Preparation for future learning</p>
+                            <p style="font-size: 1.05em; line-height: 1.7; margin-top: 10px;"><strong>Our approach:</strong> Transfer challenges to new contexts (baseball, etc.)</p>
+                        </div>
+
+                        <div style="background: white; padding: 25px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                            <h4 style="color: #4338ca; margin-bottom: 15px; font-size: 1.4em;">📊 Variation Theory</h4>
+                            <p style="font-size: 1.05em; line-height: 1.7;"><strong>Research:</strong> Marton (2015) - Learning through systematic variation</p>
+                            <p style="font-size: 1.05em; line-height: 1.7; margin-top: 10px;"><strong>Our approach:</strong> Tables showing how varying each factor affects outcomes</p>
+                        </div>
+
+                        <div style="background: white; padding: 25px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                            <h4 style="color: #4338ca; margin-bottom: 15px; font-size: 1.4em;">💪 Productive Failure</h4>
+                            <p style="font-size: 1.05em; line-height: 1.7;"><strong>Research:</strong> Kapur (2014) - Struggle before instruction improves learning</p>
+                            <p style="font-size: 1.05em; line-height: 1.7; margin-top: 10px;"><strong>Our approach:</strong> Pre-instruction prediction challenge to activate prior knowledge</p>
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(255,255,255,0.9); padding: 30px; border-radius: 16px; margin-top: 40px; border: 3px solid #4338ca;">
+                        <p style="font-size: 1.2em; line-height: 1.8; color: #1e1b4b; text-align: center;">
+                            <strong>The result:</strong> A document that doesn't just present information—it actively supports how your brain learns best. Every feature is backed by decades of research into how students actually learn physics! 🌟
+                        </p>
                     </div>
                 </div>
             </section>
