@@ -1273,6 +1273,71 @@
         </header>
         
         <main class="content">
+            <!-- Learning Objectives -->
+            <section style="background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%); border-radius: 20px; padding: 40px; margin-bottom: 50px; border: 3px solid #059669;">
+                <h2 style="color: #065f46; text-align: center; margin-bottom: 30px;">🎯 Learning Objectives</h2>
+                <p style="text-align: center; font-size: 1.2em; color: #065f46; margin-bottom: 30px;">By the end of this lesson, you will be able to:</p>
+                <div style="display: grid; gap: 20px; max-width: 1000px; margin: 0 auto;">
+                    <div style="background: white; padding: 25px; border-radius: 12px; border-left: 5px solid #059669;">
+                        <strong style="color: #059669; font-size: 1.2em;">1. Apply Newton's First Law (Inertia)</strong>
+                        <p style="margin-top: 10px; color: #1f2937;">Explain why passengers continue moving forward during crashes and calculate their kinetic energy</p>
+                    </div>
+                    <div style="background: white; padding: 25px; border-radius: 12px; border-left: 5px solid #059669;">
+                        <strong style="color: #059669; font-size: 1.2em;">2. Apply Newton's Second Law (F=Δp/Δt)</strong>
+                        <p style="margin-top: 10px; color: #1f2937;">Calculate collision forces and explain how extending time reduces force by a specific factor</p>
+                    </div>
+                    <div style="background: white; padding: 25px; border-radius: 12px; border-left: 5px solid #059669;">
+                        <strong style="color: #059669; font-size: 1.2em;">3. Apply Newton's Third Law (Action-Reaction)</strong>
+                        <p style="margin-top: 10px; color: #1f2937;">Identify action-reaction force pairs and draw accurate force diagrams</p>
+                    </div>
+                    <div style="background: white; padding: 25px; border-radius: 12px; border-left: 5px solid #059669;">
+                        <strong style="color: #059669; font-size: 1.2em;">4. Synthesize All Three Laws</strong>
+                        <p style="margin-top: 10px; color: #1f2937;">Explain how all three laws work together in collision safety engineering</p>
+                    </div>
+                    <div style="background: white; padding: 25px; border-radius: 12px; border-left: 5px solid #059669;">
+                        <strong style="color: #059669; font-size: 1.2em;">5. Transfer to New Contexts</strong>
+                        <p style="margin-top: 10px; color: #1f2937;">Apply these principles to different scenarios (sports, everyday life, engineering)</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Navigation -->
+            <section style="background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%); border-radius: 20px; padding: 35px; margin-bottom: 50px; border: 3px solid #6b7280;">
+                <h2 style="color: #374151; text-align: center; margin-bottom: 25px;">📖 Quick Navigation</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; max-width: 1200px; margin: 0 auto;">
+                    <a href="#timeline-heading" style="background: white; padding: 20px; border-radius: 12px; text-decoration: none; color: #1f2937; font-weight: 600; border-left: 5px solid #667eea; transition: transform 0.2s; display: block;">
+                        ⏱️ Collision Timeline
+                    </a>
+                    <a href="#scenario-heading" style="background: white; padding: 20px; border-radius: 12px; text-decoration: none; color: #1f2937; font-weight: 600; border-left: 5px solid #667eea; transition: transform 0.2s; display: block;">
+                        🎬 The Scenario
+                    </a>
+                    <a href="#law1-heading" style="background: white; padding: 20px; border-radius: 12px; text-decoration: none; color: #1f2937; font-weight: 600; border-left: 5px solid #ff6b9d; transition: transform 0.2s; display: block;">
+                        ⚖️ Law 1: Inertia
+                    </a>
+                    <a href="#law2-heading" style="background: white; padding: 20px; border-radius: 12px; text-decoration: none; color: #1f2937; font-weight: 600; border-left: 5px solid #4ecdc4; transition: transform 0.2s; display: block;">
+                        ⚡ Law 2: F=ma
+                    </a>
+                    <a href="#law3-heading" style="background: white; padding: 20px; border-radius: 12px; text-decoration: none; color: #1f2937; font-weight: 600; border-left: 5px solid #95e1d3; transition: transform 0.2s; display: block;">
+                        🔄 Law 3: Action-Reaction
+                    </a>
+                    <a href="#synthesis-heading" style="background: white; padding: 20px; border-radius: 12px; text-decoration: none; color: #1f2937; font-weight: 600; border-left: 5px solid #d97706; transition: transform 0.2s; display: block;">
+                        🔗 How Laws Work Together
+                    </a>
+                    <a href="#engineering-heading" style="background: white; padding: 20px; border-radius: 12px; text-decoration: none; color: #1f2937; font-weight: 600; border-left: 5px solid #667eea; transition: transform 0.2s; display: block;">
+                        🛠️ Real Engineering
+                    </a>
+                    <a href="#reference-heading" style="background: white; padding: 20px; border-radius: 12px; text-decoration: none; color: #1f2937; font-weight: 600; border-left: 5px solid #2c3e50; transition: transform 0.2s; display: block;">
+                        📋 Quick Reference
+                    </a>
+                </div>
+                <style>
+                    a[href^="#"]:hover {
+                        transform: translateX(5px);
+                        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                    }
+                </style>
+            </section>
+
             <!-- Hero Timeline Section -->
             <section class="hero-section" aria-labelledby="timeline-heading">
                 <h2 id="timeline-heading">⏱️ Collision Timeline: When Each Law Matters</h2>
@@ -1418,7 +1483,7 @@
                     <div class="calc-box">
                         <h3>📐 How Much Energy Does the Passenger Have?</h3>
                         <p style="margin-bottom: 20px;">This kinetic energy represents their "desire" to keep moving. It has to go somewhere!</p>
-                        
+
                         <div class="calc-step">
                             <strong>Formula:</strong> KE = ½mv²
                         </div>
@@ -1430,14 +1495,19 @@
                             KE = ½ × 70 kg × (20 m/s)²
                         </div>
                         <div class="calc-step">
-                            KE = ½ × 70 × 400
+                            KE = ½ × 70 kg × 400 m²/s²
                         </div>
                         <div class="calc-step">
-                            KE = 35 × 400
+                            KE = 35 kg × 400 m²/s²
                         </div>
                         <div class="calc-arrow">↓</div>
+                        <div class="calc-step" style="background: #e0f2fe; padding: 20px; border-radius: 12px; border-left: 5px solid #0284c7;">
+                            <strong>Dimensional Analysis Check:</strong><br>
+                            kg × m²/s² = kg·m²/s² = Joule ✓<br>
+                            <span style="font-size: 0.95em; color: #334155;">Units check out! Energy must be in Joules.</span>
+                        </div>
                         <div class="calc-step result">
-                            KE = 14,000 Joules
+                            KE = 14,000 Joules (or 14,000 kg·m²/s²)
                         </div>
                     </div>
 
@@ -1541,14 +1611,22 @@
                         <p style="margin-bottom: 20px; padding: 15px; background: #fef3c7; border-radius: 12px; color: #78350f;">
                             <strong>Remember:</strong> This is the same no matter what. The passenger MUST change from 20 m/s to 0 m/s.
                         </p>
-                        
+
                         <div class="calc-step">
                             Δp = m × Δv
                         </div>
                         <div class="calc-step">
                             Δp = 70 kg × (20 m/s - 0 m/s)
                         </div>
+                        <div class="calc-step">
+                            Δp = 70 kg × 20 m/s
+                        </div>
                         <div class="calc-arrow">↓</div>
+                        <div class="calc-step" style="background: #e0f2fe; padding: 20px; border-radius: 12px; border-left: 5px solid #0284c7;">
+                            <strong>Dimensional Analysis:</strong><br>
+                            kg × m/s = kg·m/s (momentum units) ✓<br>
+                            <span style="font-size: 0.95em; color: #334155;">Momentum = mass × velocity, measured in kg·m/s</span>
+                        </div>
                         <div class="calc-step result">
                             Δp = 1,400 kg·m/s
                         </div>
@@ -1574,9 +1652,13 @@
                             <div class="comparison-value">
                                 F = 1,400 kg·m/s / 0.01 s
                             </div>
-                            
+
+                            <div class="comparison-value" style="background: #e0f2fe; border-left-color: #0284c7;">
+                                <strong>Units check:</strong> (kg·m/s) / s = kg·m/s² = Newton ✓
+                            </div>
+
                             <div class="comparison-result" style="background: #fca5a5; color: #7f1d1d;">
-                                F = 140,000 Newtons
+                                F = 140,000 Newtons (or 140,000 kg·m/s²)
                             </div>
                             
                             <div class="comparison-impact">
@@ -1599,9 +1681,13 @@
                             <div class="comparison-value">
                                 F = 1,400 kg·m/s / 0.10 s
                             </div>
-                            
+
+                            <div class="comparison-value" style="background: #e0f2fe; border-left-color: #0284c7;">
+                                <strong>Units check:</strong> (kg·m/s) / s = kg·m/s² = Newton ✓
+                            </div>
+
                             <div class="comparison-result" style="background: #86efac; color: #14532d;">
-                                F = 14,000 Newtons
+                                F = 14,000 Newtons (or 14,000 kg·m/s²)
                             </div>
                             
                             <div class="comparison-impact">
@@ -1996,6 +2082,62 @@
                             <p><strong style="color: #d97706;">All Three Laws Together:</strong> Law 1 explained WHY we need safety equipment (to overcome inertia). Law 2 explained HOW to reduce forces (extend time). Law 3 explained WHERE forces act (in equal-opposite pairs). Every single safety feature uses ALL THREE laws working together!</p>
                         </div>
                     </div>
+                </div>
+            </section>
+
+            <!-- Real-World Applications -->
+            <section style="background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); border-radius: 24px; padding: 50px 40px; margin: 60px 0; border: 3px solid #f59e0b;">
+                <h2 style="color: #d97706; text-align: center; margin-bottom: 40px; font-size: clamp(2em, 4vw, 2.8em);">🌎 Where Else Do You See These Laws?</h2>
+
+                <div style="display: grid; gap: 25px; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); max-width: 1400px; margin: 0 auto;">
+                    <div style="background: white; padding: 30px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); border-left: 6px solid #ff6b9d;">
+                        <h3 style="color: #ff6b9d; margin-bottom: 15px;">🏈 Football Tackles</h3>
+                        <p><strong>Law 1:</strong> Running back wants to keep running - defenders must apply force to stop them</p>
+                        <p style="margin-top: 10px;"><strong>Law 2:</strong> Lighter defensive back needs more time to stop heavy running back → wrap-up tackles extend collision time</p>
+                        <p style="margin-top: 10px;"><strong>Law 3:</strong> When players collide, both feel equal force (why both can get injured!)</p>
+                    </div>
+
+                    <div style="background: white; padding: 30px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); border-left: 6px solid #4ecdc4;">
+                        <h3 style="color: #4ecdc4; margin-bottom: 15px;">🚁 Helicopter Flight</h3>
+                        <p><strong>Law 3:</strong> Rotor blades push air DOWN → air pushes helicopter UP (action-reaction)</p>
+                        <p style="margin-top: 10px;"><strong>Why it matters:</strong> Equal forces! To lift heavier helicopter, must push MORE air down (bigger/faster rotors)</p>
+                        <p style="margin-top: 10px;"><strong>Same principle:</strong> How rockets work in space (no air to push against—they push exhaust DOWN, rocket goes UP)</p>
+                    </div>
+
+                    <div style="background: white; padding: 30px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); border-left: 6px solid #95e1d3;">
+                        <h3 style="color: #059669; margin-bottom: 15px;">🎢 Roller Coasters</h3>
+                        <p><strong>Law 1:</strong> At top of loop, you want to keep going straight (inertia) but track forces you into circular path</p>
+                        <p style="margin-top: 10px;"><strong>Law 2:</strong> Tighter curves = greater acceleration needed = stronger forces you feel</p>
+                        <p style="margin-top: 10px;"><strong>The math:</strong> F = ma → Smaller radius = bigger acceleration = bigger force on your body!</p>
+                    </div>
+
+                    <div style="background: white; padding: 30px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); border-left: 6px solid #f59e0b;">
+                        <h3 style="color: #d97706; margin-bottom: 15px;">🎣 Fishing Line</h3>
+                        <p><strong>Law 2 application:</strong> When fish bites, don't yank! Reel in slowly to extend time (Δt ↑ means F ↓)</p>
+                        <p style="margin-top: 10px;"><strong>Why it works:</strong> Same momentum change, longer time = less force on line = doesn't snap!</p>
+                        <p style="margin-top: 10px;"><strong>Proof:</strong> Experienced anglers use "drag" systems to automatically extend stopping time</p>
+                    </div>
+
+                    <div style="background: white; padding: 30px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); border-left: 6px solid #a855f7;">
+                        <h3 style="color: #7e22ce; margin-bottom: 15px;">🥚 Egg Drop Challenge</h3>
+                        <p><strong>The goal:</strong> Drop egg from height without breaking - pure F=Δp/Δt engineering!</p>
+                        <p style="margin-top: 10px;"><strong>Winning strategy:</strong> Add padding/parachute to maximize Δt when egg hits ground</p>
+                        <p style="margin-top: 10px;"><strong>Why it works:</strong> Δp is fixed (egg must stop), so increase Δt → decrease F → egg survives!</p>
+                    </div>
+
+                    <div style="background: white; padding: 30px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); border-left: 6px solid #0ea5e9;">
+                        <h3 style="color: #0284c7; margin-bottom: 15px;">⚾ Baseball Bats</h3>
+                        <p><strong>Law 2:</strong> Heavier bat (more mass) × same swing speed = more force on ball</p>
+                        <p style="margin-top: 10px;"><strong>Law 3:</strong> Ball exerts equal force BACK on bat (why it stings your hands on mishits!)</p>
+                        <p style="margin-top: 10px;"><strong>Trade-off:</strong> Heavier bat = harder to accelerate → can't swing as fast → need to find optimal mass!</p>
+                    </div>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.9); padding: 30px; border-radius: 16px; margin-top: 40px; border: 3px solid #d97706;">
+                    <h3 style="color: #d97706; text-align: center; margin-bottom: 20px;">💡 The Universal Truth</h3>
+                    <p style="font-size: 1.2em; line-height: 1.8; color: #78350f; text-align: center;">
+                        These three laws govern <strong>EVERY SINGLE MOTION</strong> in the universe—from atoms bouncing to galaxies colliding. Once you see them, you can't unsee them. Start noticing them everywhere! 🌟
+                    </p>
                 </div>
             </section>
 
